@@ -4,12 +4,15 @@ const path = require('path');
 
 const app = express();
 
+
 const protected =  require('./routes/protected');
 const public =  require('./routes/public');
 
 const rootDir = require('./util/path'); 
 //util/path/ will help us to use everything from root directory
 //or to place everypath in the code in root context  
+
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -22,7 +25,7 @@ app.use('/protected', protected);
 // by /protected/protected-section-1. We also need to keep in mind for POST
 app.use(public);
 app.use((req, res, next)=>{
-    res.status(404).sendFile(path.join(rootDir, 'views', 'page-not-found.html'));
+    res.status(404).render('page-not-found', {content: 'Page Not Found'});
 })
 
 app.listen(3000);

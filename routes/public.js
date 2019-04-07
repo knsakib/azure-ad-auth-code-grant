@@ -5,7 +5,7 @@ const router = express.Router();
 const rootDir = require('../util/path'); 
 
 router.get('/', (req, res, next)=>{
-    res.sendFile(path.join(rootDir, 'views', 'public.html'));
+    res.render('protected', {content: 'Public Section'});
 });
 
 module.exports=router;
